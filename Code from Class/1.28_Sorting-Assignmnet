@@ -1,0 +1,12 @@
+from pandas import Series, DataFrame
+import pandas as pd
+import numpy as np
+
+main_dir = "/Users/cuffiewinkler/Desktop/GitHub"
+Text_file = "/BigData/File1_small.txt"
+
+Winker_Test = pd.read_table(main_dir + txt_file. sep(" ")
+ 
+Winkler_Test[60:100]
+  
+Winkler_Text[df.kwh >= 30 
