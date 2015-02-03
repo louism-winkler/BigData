@@ -10,7 +10,6 @@ csv_file_good= "sample_data_clean.csv"
 #For Loops------------------
 
 df = pd.read_csv(os.path.join(main_dir, csv_file_good))
-df1 = pd.read_csv([1, 2, 3,])
 
 list1 = range(10,15)
 list2 = ['a', 'b', 'c']
