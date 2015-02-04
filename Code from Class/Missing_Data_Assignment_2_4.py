@@ -30,7 +30,7 @@ df['consump'].head(10).apply(type)
 
 #mising data (using smallter dataframe) ---------------------------------
 
-# quick top, you can repeast lists by multiplying
+# quick tip, you can repeast lists by multiplying
 
 [1, 2, 3]
 [1, 2, 3]*3
