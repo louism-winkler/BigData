@@ -104,6 +104,7 @@ df_wideB1 = df_wide[(df_wide.Group_B1 == 1) | (df_wide.Group_Control == 1)]
 yB1 = df_wideB1.Group_B1
 XB1 = df_wideB1[kwh_cols]
 XB1 = sm.add_constant(XB1)
+
 #logit
 logit_model = sm.Logit(yB1, XB1)
 logit_results = logit_model.fit()
@@ -114,6 +115,7 @@ df_wideB3 = df_wide[(df_wide.Group_B3 == 1) | (df_wide.Group_Control == 1)]
 yB3 = df_wideB3.Group_B3
 XB3 = df_wideB3[kwh_cols]
 XB3 = sm.add_constant(XB3)
+
 #logit
 logit_model = sm.Logit(yB3, XB3)
 logit_results = logit_model.fit()

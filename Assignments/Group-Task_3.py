@@ -52,11 +52,11 @@ sampB1 = np.random.choice(B1['ID'], 50, replace = False)
 sampB3 = np.random.choice(B3['ID'], 50, replace = False)
 
 #give group names (for aggregation later) Not the most elegant solution, but it works
-EE['Group'] = 'Control'
-A1['Group'] = 'A1'
-A3['Group'] = 'A3'
-B1['Group'] = 'B1'
-B3['Group'] = 'B3'
+#sampEE['Group'] = 'Control'
+#sampA1['Group'] = 'A1'
+#sampA3['Group'] = 'A3'
+#sampB1['Group'] = 'B1'
+#sampB3['Group'] = 'B3'
 
 ids = sampA1.tolist() + sampA3.tolist() + sampB3.tolist() + sampB3.tolist() + sampEE.tolist()
 #these are arrays we are converting to list, output is list; not a list of lists
@@ -95,7 +95,7 @@ df_wide = pd.merge(df_wide, df_alloc)
 
 #--------------Different from Andrew's Code------------#
 #dummy vars for groups/clean up df
-df_wide = pd.get_dummies(df_wide, columns = ['Group'])
+df_wide = pd.get_dummies(df_wide, columns = ['ID'])
 #f_wide.drop(['code', 'tariff', 'stimulus'], axis = 1, inplace = True)
 
 #SET UP DATA FOR LOGIT
