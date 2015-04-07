@@ -1,0 +1,43 @@
+
+For our task, we used:
+
+QUESTION 5414 	 
+How do you think that your electricity bills will change as part of the trial?
+
+	1		No change
+	2		Increase
+	3		Decrease
+
+QUESTION 405 	 
+Do you have internet access in your home?
+
+	1		Yes
+	2		No
+
+Question 1
+
+Briefly explain the results of each different logit regression with the 2 variables you selected (which converge). Highlight any significant differences between the models and if there is any evidence of imbalance. Please be concise.
+
+A1
+
+A3
+
+A3CoefProbability [95.0% Conf. Int.] LOWProbability [95.0% Conf. Int.] HIGHProbabilityConstant-0.444439.07%-1.1723.69%0.28156.98%kwh_2009_070.002750.07%-0.00349.93%0.00850.20%kwh_2009_08-0.003249.92%-0.00749.83%0.00150.02%kwh_2009_090.002250.05%-0.00349.93%0.00850.20%kwh_2009_100.000650.01%-0.00549.88%0.00650.15%kwh_2009_110.001650.04%-0.00349.93%0.00650.15%kwh_2009_12-0.001949.95%-0.0052.85%0.00150.02%D_5414_2-1.286821.64%-3.532.85%0.95472.19%D_5414_3-0.505637.62%-1.05625.81%0.04551.12%D_405_2-0.248843.81%-0.77831.48%0.28156.98%
+
+B1
+
+B3
+
+
+Question 2
+
+The major issues would be both co-linearity and a bloated error term resulting from more “noise” in the data. 
+
+Question 3
+
+Briefly explain when and why (if at all) it would be sufficient to use only a subset of the available survey questions. Please be concise.
+
+Big Data
+Group Task 3
+Jaguars
+
