@@ -196,8 +196,9 @@ df = pd.read_csv(main_dir + 'data_section2.csv')
 # list of questions
 qs = ques_list(srvy)
 
+
 # get dummies
-sel = [200, 300, 310, 405, 401]
+sel = [5414, 405]
 dummies = dvt(srvy, sel)
 
 # run logit, optional dummies
@@ -209,3 +210,10 @@ stimuli.sort()
 for i in tariffs:
     for j in stimuli:
         do_logit(df, i, j, D = dummies)
+
+
+
+
+
+
+
