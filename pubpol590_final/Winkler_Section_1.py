@@ -1,8 +1,12 @@
+from scipy.stats import ttest_ind
+from scipy.special import stdtr
 from __future__ import division
 from pandas import Series, DataFrame
 import pandas as pd
 import numpy as np
 import os
+import time
+from datetime import datetime
 
 
 ################################################
@@ -11,7 +15,7 @@ import os
 
 #1. Import and stack (concatenate) the gas consumption data files. 
 
-main_dir = "/Users/louiswinkler/Desktop/GitHub/pubpol590_final/section_1/"
+main_dir = "/Users/louiswinkler/Desktop/GitHub//BigData/pubpol590_final/section_1/"
 
 csv1 = 'gas_long_redux_1.csv'
 csv2 = 'gas_long_redux_2.csv'
@@ -31,6 +35,7 @@ df_consump = pd.concat([df1, df2, df3, df4, df5])
 
 df_consump = df_consump.fillna(0)
 #df_consump = df_consump['kwh'][df_consump.kwh < 0] = 0 <----------------------need to fix
+#df_consump = df_consump['kwh'].clip(0, None)
 df_consump = df_consump.drop_duplicates(['ID', 'date_cer'])
 
 # 3. 
@@ -46,35 +51,37 @@ print df_consump.kwh.mean()
 
 #1. Import the allocation data and the time correction data 
 
-alloc_file = "residential_allocations.csv"
+csv_file = "residential_allocations.csv"
 time_file = "time_correction.csv"
 
-#pull in definitions file
-df_def = pd.read_csv(os.path.join(main_dir, alloc_file), usecols=[0,1,],na_values=[''])
+#pull in definitions file 
+df_def = pd.read_csv(os.path.join(main_dir, csv_file), usecols=[0,1],na_values=[''])
 
 #pull in timeseries helper file
-df_time = pd.read_csv(os.path.join(main_dir, time_file))
-df_time['timecode_cer'] = df_time['day_cer']*100 + df_time['hour_cer']
-df_time['datetime'] = pd.to_datetime(df_time['date']) #get the date in datetime, so we can sort later
-df_time['monthyear'] = df_time['datetime'].apply(lambda x: datetime(x.year, x.month, 1, 0, 0)) #get just the first day of the month for each date
+df_time = pd.read_csv(os.path.join(main_dir, time_file), parse_dates = [1])
+df_time['date_cer'] = df_time['day_cer']*100 + df_time['hour_cer']
 
-#2. Merge both data sets to the cleaned dataframe in Part A.
+#merge all three files
+df_combo = pd.merge(df_consump, df_def)  
+df_combo = pd.merge(df_time, df_combo) 
 
-df = pd.merge(df_consump, df_def, df_time)  #<----Need to figure this out
+#drop unneeded columns
+df_combo.drop('date', axis=1, inplace=True)
+df_combo.drop('year', axis=1, inplace=True)
+df_combo.drop('day', axis=1, inplace=True)
+df_combo.drop('hour', axis=1, inplace=True)
+df_combo.drop('minute', axis=1, inplace=True)
+df_combo.drop('hour_cer', axis=1, inplace=True)
+df_combo.drop('day_cer', axis=1, inplace=True)
 
-
-
-
-
-
-
-
-
+del df_def
+del df_time
 
 #3.
 
 print "\n\n\n"
-print df[df.ID == 1021].head(20)
+print df_combo[df_combo.ID == 1021].head(20)
+
 
 ################################################
 ###### Part c   ########################
@@ -82,15 +89,15 @@ print df[df.ID == 1021].head(20)
 
 #1. Aggregate household electricity consumption by month.
 
-grp1 = df.groupby(['Group','ID','year', 'month'])
+grp1 = df_combo.groupby(['month'])
 df=grp1['kwh'].sum().reset_index()
 
 
 #2. Pivot the monthly consumption data from long to wide.
 
-df_wide = df.pivot('ID', 'kwh_ym', 'kwh')
-df_wide.reset_index(inplace = True)
-df_wide.columns.name = None
+df_piv = df_combo.pivot('ID', 'date_cer', 'kwh')
+df_piv.reset_index(inplace = True)
+df_piv.columns.name = None
 
 
 #3. TO RECEIVE CREDIT: 
